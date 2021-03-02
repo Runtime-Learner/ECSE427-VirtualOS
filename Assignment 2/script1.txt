@@ -1,0 +1,4 @@
+set x 10
+print x
+set x 110
+print x

@@ -1,0 +1,4 @@
+set testfile_nested1 "currently running TESTFILE_NESTED1"
+run TESTFILE_NESTED2.txt
+print testfile_nested1
+quit

@@ -1,0 +1,4 @@
+set y 20
+print y
+set y 120
+print y

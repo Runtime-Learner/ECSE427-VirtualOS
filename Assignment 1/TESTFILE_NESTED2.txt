@@ -1,0 +1,3 @@
+set testfile_nested2 "currently running TESTFILE_NESTED2"
+echo "Running the quit command ends the script. If quit is executed outside a script, it exits from the program"
+quit

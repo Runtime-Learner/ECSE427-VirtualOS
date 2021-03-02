@@ -1,0 +1,15 @@
+Library calls that stay in user-mode:
+
+1) strstr
+	CPU cycles elapsed (average of 5 runs): 3
+
+2) strcmp
+	CPU cycles elapsed (average of 5 runs): 3
+
+Library calls that use system calls:
+
+1) printf uses system call write(fd, buffer, nbytes)
+	CPU cycles elapsed (average of 5 runs): 130
+
+2) fopen uses system call open(file, how, ...)
+	CPU cycles elapsed (average of 5 runs): 125

@@ -1,0 +1,2 @@
+set testfile_error "currently running TESTFILE_ERROR"
+fake_command fakeArg1 fakeArg2

@@ -1,0 +1,32 @@
+set testfile "currently running TESTFILE"
+
+echo "The help command can be followed by a command in order to get more information about it"
+help set
+
+echo "Writing help by itself will print out info about all known commands"
+help
+
+echo "The run command can be nested-- scripts executed using the run command can themselves execute scripts"
+run TESTFILE_NESTED1.txt
+print testfile
+
+echo "If a script ends without the quit command, it returns with no errors"
+run TESTFILE_noQUIT.txt
+print testfile
+
+echo "When an error occurs in a script, its line number is reported and a trace is printed out for debugging"
+run TESTFILE_ERROR.txt
+print testfile
+run TESTFILE_ERROR_NESTED.txt
+print testfile
+
+echo "Parse errors occur when the user input includes open quotations and when tokens are too large"
+help "
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+
+echo "If commands are passed an invalid number of arguments, an error is printed out"
+help 1 2
+set
+print 1 2 3 4 5 6 7 8
+
+quit

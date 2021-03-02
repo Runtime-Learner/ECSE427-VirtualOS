@@ -1,0 +1,3 @@
+set testfile_error_nested "currently running TESTFILE_ERROR_NESTED"
+run TESTFILE_ERROR.txt
+echo "This line of code will never be executed"

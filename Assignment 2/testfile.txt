@@ -1,0 +1,33 @@
+echo "Testing assignment 1 commands:"
+echo "help"
+help
+echo "set [[var] [[string]"
+set mary 10
+set tom 20
+set bob mary
+echo "set bobbie Montreal Canadians will cause an error"
+set bobbie Montreal Canadians
+echo "set bobbie ''Montreal Canadians'' will not"
+set bobbie "Montreal Canadians"
+echo "print [[var]"
+print mary
+print tom
+print bob
+print bobbie
+echo "run [[script]"
+run script1.txt
+run script3.txt
+echo "Testing the exec command:"
+echo "We can execute three programs concurrently."
+exec script1.txt script2.txt script3.txt
+echo "We can execute two programs concurrently"
+exec script1.txt script2.txt
+echo "We can execute one program 'concurrently'"
+exec script1.txt
+echo "We do not allow two programs with the same name to be executed at the same time"
+exec script1.txt script1.txt script3.txt
+echo "We detect if files do not exist"
+exec stript1.txt script2.txt script3.txt
+exec stript2.txt script1.txt
+echo "Testing the quit command:"
+quit

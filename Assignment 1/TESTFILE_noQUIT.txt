@@ -1,0 +1,1 @@
+set testfile_noQuit "currently running TESTFILE_noQUIT"

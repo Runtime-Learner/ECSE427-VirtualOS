@@ -1,0 +1,157 @@
+In all tests we run the command
+exec sched1.txt sched2.txt sched3.txt
+
+The starting time is calculated right before calling scheduler().
+The ending time is calculated right after scheduler() returns.
+
+Question: What differences do you notice in the output as we change the quanta? Why?
+Answer: As we increase the quanta size, the programs run more without being interrupted.
+An extreme case is when Quanta is 20. At that point, since no script has more than 20 instructions, the processes run one after the other.
+
+Question: What differences do you notice in execution time? Why?
+It appears that execution time lowers as we go from a quanta of 2 to 5. This can be explained by the reduced task switching occuring.
+I am not quite sure why the test with a quanta of 20 has the largest average CPU cycle. I would have expected it to have the lowest time
+because it has the smallest amount of overhead related to task switching.
+
+Question: How would the results change if quanta was an amount of time that the processes are allowed to run, instead of a number of code lines?
+Answer: I believe that would be more fair to processes waiting in the queue. Not all code lines take as long to execute. A run command, for example, 
+can be as long if not larger than the actual program that called the command. Since it is considered one command, it is run entirely when our quanta is a number of code lines.
+I believe that changing to a time based quanta would lead to a higher task switch overhead, as we would have to store more data in PCBs. A command could technically be interrupted
+mid execution with a time based quanta, for example. We would need to store the state of the command to resume it later. 
+Because of this, I believe that the average run time would increase if we were to implement time based quantas.
+
+
+DATA:
+_______________________________________
+Quanta = 2:
+trial1: 253 CPU cycles
+trial2: 286 CPU cycles
+trial3: 373 CPU cycles
+trial4: 312 CPU cycles
+trial5: 355 CPU cycles
+
+average: 315.8 CPU cycles
+_______________________________________
+Quanta = 5:
+trial1: 366 CPU cycles
+trial2: 297 CPU cycles
+trial3: 193 CPU cycles
+trial4: 319 CPU cycles
+trial5: 200 CPU cycles
+
+average: 275 CPU cycles
+
+_______________________________________
+Quanta = 20:
+trial1: 226 CPU cycles
+trial2: 348 CPU cycles
+trial3: 405 CPU cycles
+trial4: 301 CPU cycles
+trial5: 424 CPU cycles
+
+average: 340.8 CPU cycles
+__________________________________________________________________________________________
+
+Output Quanta 2:
+a = a1
+b = b1
+a = a2
+b = b2
+a = a3
+b = b3
+c = c1
+d = d1
+c = c2
+d = d2
+c = c3
+d = d3
+                              clear    Clears the terminal screen
+                        echo STRING    Print STRING on a new line
+exec program1 [program2] [program3]    run programs concurrently
+                     help [COMMAND]    Displays all the commands - prints out details about [COMMAND]
+                          print VAR    Displays the value assigned to VAR
+                               quit    Exits / terminates the shell
+                     run SCRIPT.TXT    Executes the file SCRIPT.TXT
+                     set VAR STRING    Assigns value STRING to shell variable VAR
+a3
+a3
+b3
+a3
+b3
+b3
+c3
+c3
+d3
+c3
+d3
+d3
+_______________________________________
+
+Output Quanta 5:
+a = a1
+b = b1
+c = c1
+d = d1
+                              clear    Clears the terminal screen
+                        echo STRING    Print STRING on a new line
+exec program1 [program2] [program3]    run programs concurrently
+                     help [COMMAND]    Displays all the commands - prints out details about [COMMAND]
+                          print VAR    Displays the value assigned to VAR
+                               quit    Exits / terminates the shell
+                     run SCRIPT.TXT    Executes the file SCRIPT.TXT
+                     set VAR STRING    Assigns value STRING to shell variable VAR
+a = a2
+b = b2
+c = c2
+d = d2
+a2
+a = a3
+b = b3
+c = c3
+d = d3
+a3
+a3
+b3
+c3
+d3
+b3
+c3
+d3
+b3
+c3
+d3
+_______________________________________
+
+Output Quanta 20:
+a = a1
+b = b1
+c = c1
+d = d1
+                              clear    Clears the terminal screen
+                        echo STRING    Print STRING on a new line
+exec program1 [program2] [program3]    run programs concurrently
+                     help [COMMAND]    Displays all the commands - prints out details about [COMMAND]
+                          print VAR    Displays the value assigned to VAR
+                               quit    Exits / terminates the shell
+                     run SCRIPT.TXT    Executes the file SCRIPT.TXT
+                     set VAR STRING    Assigns value STRING to shell variable VAR
+a1
+b1
+c1
+d1
+a = a2
+b = b2
+c = c2
+d = d2
+a2
+b2
+c2
+d2
+a = a3
+b = b3
+c = c3
+d = d3
+a3
+b3
+c3
+d3
